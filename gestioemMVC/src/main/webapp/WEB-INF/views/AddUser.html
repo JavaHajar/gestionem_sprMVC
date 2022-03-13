@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Add user</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<style>
+    .error {
+        color: red;
+    }
+</style>
+<body>
+
+<div class ="container">
+    <h1>Ajouter un utilisateur </h1>
+
+    <form th:action="@{/admin/insert}" method="post" th:object="${user}">
+        <div>
+        <ul>
+        <li th:each="err : ${#fields.errors('nom_user')}" th:text="${err}" class="error" />
+        </ul>
+            <label>Nom : </label> <input type="text" th:field="*{nom_user}" class="form-control mb-2 col-4"/>
+        </div>
+        <br>
+        <div>
+        <ul>
+        <li th:each="err : ${#fields.errors('prenom_user')}" th:text="${err}" class="error" />
+        </ul>
+        
+            <label>Prenom : </label> <input type="text" th:field="*{prenom_user}"  class="form-control mb-2 col-4" required/>
+        </div>
+        <br>
+        <div>
+            <label>Email : </label> <input type="text" th:field="*{email}" class="form-control mb-2 col-4" required/>
+        </div>
+        <br>
+        <div>
+            <label>Password : </label> <input type="text" th:field="*{password}"  class="form-control mb-2 col-4"/>
+        </div>
+        <br>
+        <div>
+            <label>Role : </label> 
+            <select name="rol_id" class="form-control mb-2 col-4">
+            <option value="" th:disabled="disabled" th:selected="selected">Choisir un role</option>
+            <option th:each="role : ${roles}" th:value="${role.id_role }"th:text="${role.nom_role }"/>
+            </select>
+    
+        </div>
+        <br>
+        <p th:if="${#fields.hasErrors('password')}" th:class="${#fields.hasErrors('password')}? error" th:text="${password}"></p>
+        <ul>
+        <li th:each="err : ${#fields.errors('password')}" th:text="${err}" class="error" />
+        </ul>
+        <button type="submit" class="btn btn-success">Ajouter</button>
+    </form> 
+  </div>  
+</body>
+</html>

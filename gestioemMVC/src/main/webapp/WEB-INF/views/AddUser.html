@@ -17,41 +17,34 @@
 
     <form th:action="@{/admin/insert}" method="post" th:object="${user}">
         <div>
-        <ul>
-        <li th:each="err : ${#fields.errors('nom_user')}" th:text="${err}" class="error" />
-        </ul>
             <label>Nom : </label> <input type="text" th:field="*{nom_user}" class="form-control mb-2 col-4"/>
+            <p th:if="${#fields.hasErrors('nom_user')}" th:errors="*{nom_user}" class="error"/>
         </div>
         <br>
         <div>
-        <ul>
-        <li th:each="err : ${#fields.errors('prenom_user')}" th:text="${err}" class="error" />
-        </ul>
-        
-            <label>Prenom : </label> <input type="text" th:field="*{prenom_user}"  class="form-control mb-2 col-4" required/>
+            <label>Prénom : </label> <input type="text" th:field="*{prenom_user}"  class="form-control mb-2 col-4"/>
+            <p th:if="${#fields.hasErrors('prenom_user')}" th:errors="*{prenom_user}" class="error"/>
         </div>
         <br>
         <div>
-            <label>Email : </label> <input type="text" th:field="*{email}" class="form-control mb-2 col-4" required/>
+            <label>Email : </label> <input type="text" th:field="*{email}" class="form-control mb-2 col-4" />
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"/>
         </div>
         <br>
         <div>
-            <label>Password : </label> <input type="text" th:field="*{password}"  class="form-control mb-2 col-4"/>
+            <label>Password : </label>
+             <input type="password" th:field="*{password}"  class="form-control mb-2 col-4"/>
+             <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"/>
         </div>
         <br>
         <div>
             <label>Role : </label> 
-            <select name="rol_id" class="form-control mb-2 col-4">
-            <option value="" th:disabled="disabled" th:selected="selected">Choisir un role</option>
-            <option th:each="role : ${roles}" th:value="${role.id_role }"th:text="${role.nom_role }"/>
+            <select  name="rol.id_role" class="form-control mb-2 col-4" required>
+	            <option value="" th:disabled="disabled" th:selected="selected">Choisir un role</option>
+	            <option th:each="role : ${roles}" th:value="${role.id_role }"th:text="${role.nom_role }"/>
             </select>
-    
         </div>
         <br>
-        <p th:if="${#fields.hasErrors('password')}" th:class="${#fields.hasErrors('password')}? error" th:text="${password}"></p>
-        <ul>
-        <li th:each="err : ${#fields.errors('password')}" th:text="${err}" class="error" />
-        </ul>
         <button type="submit" class="btn btn-success">Ajouter</button>
     </form> 
   </div>  

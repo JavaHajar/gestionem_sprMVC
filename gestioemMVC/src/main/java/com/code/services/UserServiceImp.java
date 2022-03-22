@@ -14,7 +14,7 @@ import com.code.entities.User;
 import com.code.repository.AdminRepos;
 
 @Service
-
+@Transactional
 public class UserServiceImp implements UserService{
 	 @Autowired
 	    private UserDao userDao;
@@ -23,40 +23,32 @@ public class UserServiceImp implements UserService{
 	 @Autowired
 	   private AdminRepos adminRepos;
 
-	
-	 @Transactional(propagation=Propagation.SUPPORTS,readOnly=true) 
 	public User findId(int id) {
 		User user=userDao.findById(id);
 		return user;
 	}
 
-	 @Transactional
 	public List<User> finAll() {
 		List<User> users =userDao.findAll();
 		return users;
 	}
 
-	 @Transactional
 	public void save(User user, int rol_id) {
 		 Role role = roleDao.getById(rol_id);  
 		 user.setRol(role);
-		 userDao.save(user);
-		
+		 userDao.save(user);	
 	}
-
-	 @Transactional
 	public void update(User user, int rol_id) {
 		 Role role = roleDao.getById(rol_id);  
 		 user.setRol(role);
 		 userDao.update(user);	
 	}
 
-	 @Transactional
+
 	public void delete(int id) {
 		 userDao.delete(id); 
 	}
 
-	 @Transactional
 	public boolean islogged(String email, String password) throws Exception {
 		if(adminRepos.validate(email,password)) {
 			return true;

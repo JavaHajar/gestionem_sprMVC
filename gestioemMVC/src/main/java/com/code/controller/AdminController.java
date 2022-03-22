@@ -3,6 +3,7 @@ package com.code.controller;
 
 import java.io.PrintWriter;
 
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -73,12 +74,13 @@ public class AdminController {
     }
 	
 	@PostMapping(value = "/admin/insert")
-	public String AddUser(@Valid @ModelAttribute("user") User user, @RequestParam int rol_id, BindingResult result) {
-		
+	public String AddUser( @Valid User user, BindingResult result,Model model) {;
 		if (result.hasErrors()) {
+			model.addAttribute("user", user);
+			model.addAttribute("roles", roleService.findAll());
             return "AddUser";
         }
-		userService.save(user, rol_id);
+				userService.save(user, user.getRol().getId_role());
 		return "redirect:/admin/home";
     }
 	

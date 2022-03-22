@@ -27,36 +27,32 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-
-
-
-
-
 @Entity
 @Table(name="user")
 public class User implements Serializable{
-	
-	 /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	@Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      @Column(name = "id")
      private int id_user;
-	 @Column(name = "nom_user")
-    //@NotEmpty(message = "Le nom de l'utilisateur ne peut pas être vide.")
-     @Size(min = 5, max = 250)
+	
+	 @Column(name = "nom_user", nullable = false)
+	 @Size(min=4, message = "Le nom de l'utilisateur ne peut pas être vide!")
      private String nom_user;
+	 
      @Column(name = "prenom_user", nullable = false)
-     @Size(min = 5, max = 250)
+     @Size(min=4, message="Le prénom de l'utilisateur ne peut pas être vide!") 
      private String prenom_user;
+     
      @Column(name = "email")
-    //@NotEmpty(message = "L'e-mail de l'utilisateur ne peut pas être vide.")
+     @NotEmpty(message = "L'e-mail de l'utilisateur ne peut pas être vide!")
      private String email;
+     
      @Column(name = "password")
-     @Size(min=4, message="required")  
+     @Size(min=4, message="required !!!")  
      private String password;
+     
      @ManyToOne(fetch = FetchType.EAGER)
      @JoinColumn(name="id_role")
      private Role rol;
@@ -141,8 +137,6 @@ public class User implements Serializable{
 				+ email + ", password=" + password + ", rol=" + rol + "]";
 	}
 
-    
-
-     
+      
 
 }

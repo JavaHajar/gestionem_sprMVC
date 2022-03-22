@@ -27,10 +27,7 @@ import com.code.services.UserServiceImp;
 
 public class FilterParen implements Filter{
 	
-	
-	
 	 public  void init(FilterConfig filterConfig) {
-		 System.out.println("Good morning!");
 	       
 	   }
 	   
@@ -42,11 +39,7 @@ public class FilterParen implements Filter{
 	    public  void doFilter(ServletRequest request, ServletResponse response,
 	                         FilterChain filterChain)
 	    throws IOException, ServletException {
-	   
-	    	
-//	    	 HttpServletRequest request = (HttpServletRequest) request;
-//	         HttpServletResponse response = (HttpServletResponse) response;
-//	         String path = request.getServletPath();
+
 	    	 HttpServletRequest httpRequest = (HttpServletRequest) request;
 	    	 HttpServletResponse httpResponse = (HttpServletResponse) response;
 	 
@@ -55,19 +48,15 @@ public class FilterParen implements Filter{
 	        boolean isLoggedIn = (session != null && session.getAttribute("email") != null);
 	 
            if (isLoggedIn ) {
-//	         if (authenticate(request)) {
         	 filterChain.doFilter(request, response) ;
 	             return;
            }else {
         	   System.out.println("not allowed");
         	   httpResponse.setContentType("text/html");
                PrintWriter out = response.getWriter();
-               out.println("Sorry you don't have access!");
-               
-      	   
+               out.println("Sorry you don't have access!");         
            }
-         
-	         
+                 
 }
 	    
 }

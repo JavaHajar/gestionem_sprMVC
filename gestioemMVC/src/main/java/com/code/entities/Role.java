@@ -31,7 +31,6 @@ public class Role implements Serializable{
     @OneToMany(mappedBy = "rol")
     private Set<User> users;
    
-    
     public Role() {
     }
 
